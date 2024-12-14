@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Floklore</title>
+    <link rel="stylesheet" href="/css/AI.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-logo" style="display: flex; align-items: center; gap: 10px;">
+            <i class="fa-duotone fa-solid fa-hat-cowboy" style="--fa-primary-color:  hsl(220, 6%, 90%); --fa-secondary-color:  hsl(220, 6%, 90%); font-size: 2.5rem; color:  hsl(220, 6%, 90%);"></i>
+            <div class="logo" style="font-size: 2rem; font-weight: bold; color: hsl(220, 6%, 90%); font-family: 'Arial', sans-serif;">Floklore</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/index">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+        <h1>8 Puzzles Problem</h1>
+            <p>Given a 3×3 board with 8 tiles (each numbered from 1 to 8) and one empty space, the objective is to place the numbers to match the final configuration using the empty space. We can slide four adjacent tiles (left, right, above, and below) into the empty space.</p>
+                    <img src="/images/8_puzzle-1.jpg" alt="Centerd Image"  />
+            <h2>8 puzzle Problem using</h2>
+            <ul>
+                <li>BFS (Brute-Force) </li>
+                <li>DFS (Brute-Force) </li>
+                <li>Branch and Bound </li>
+
+            </ul>
+
+            <h2>1. 8 Puzzle Problem using BFS (Brute-Force) </h2>
+                <p>We can perform a Breadth-first search on the state space tree. This always finds a goal state nearest to the root. But no matter what the initial state is, the algorithm attempts the same sequence of moves like DFS</p>
+                <ul>
+                <li>Breadth-first search on the state-space tree.</li>
+                <li>Always finds the nearest goal state.</li>
+                <li>Same sequence of moves irrespective of initial state.</li>
+                </ul>
+            <h3>Idea:</h3>
+                <p>BFS explores all neighbor nodes at the present depth before moving on to nodes at the next depth level. It is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root and explores the neighbor nodes first, before moving to the next level neighbors.</p>
+            <h3>Approach:</h3>
+                <ol>
+                    <li>Start from the root node.</li>
+                    <li>Explore all neighboring nodes at the present depth.</li>
+                    <li>Move to the next depth level and repeat the process.</li>
+                    <li>If a goal state is reached, return the solution.</li>
+                </ol>
+                    
+
+            <h2>2. 8 puzzle Problem using Branch and Bound </h3>
+                <p>We can perform a depth-first search on state-space (Set of all configurations of a given problem i.e. all states that can be reached from the initial state) tree. </p>
+                <ul>
+                <li>Depth-first search on the state-space tree.</li>
+                <li>Successive moves may take us away from the goal.</li>
+                <li>Inefficient as it explores all paths equally.</li>
+                </ul>
+            <h3>Idea:</h3>
+                <p>DFS explores as far as possible along each branch before backtracking. It is an exhaustive search technique used to traverse or search tree or graph data structures. It starts at the root node and explores as far as possible along each branch before backtracking.</p>
+            <h3>Approach:</h3>
+                <ol>
+                    <li>Start from the root node.</li>
+                    <li>Explore the leftmost child node recursively until you reach a leaf node or a goal state.</li>
+                    <li>If a goal state is reached, return the solution.</li>
+                    <li>If a leaf node is reached without finding a solution, backtrack to explore other branches.</li>
+                </ol>
+                <div class="image-container">
+                    <img src="/images/8_puzzle-2.jpg" alt="Centerd Image"  />
+                </div>
+               
+            <h2>3. 8 puzzle Problem using Branch and Bound </h3>
+                <p>Branch and Bound (B&B) enhances both DFS and BFS by integrating a cost function to guide the search.</p>
+                <h3>Optimizations with Branch and Bound:</h3>    
+                
+            <h3>1. Intelligent Node Selection:</h3>
+            <ul>
+                <li>Instead of exploring nodes blindly (DFS) or equally (BFS), B&B uses a cost function to prioritize nodes that are closer to the goal, reducing unnecessary computations.</li>
+            </ul>
+            <h3>2. Pruning</h3>
+            <ul>
+                <li>B&B prunes paths that are unlikely to lead to an optimal solution, saving time and memory.</li>
+            </ul>
+                <p>The search for an answer node can often be speeded by using an “intelligent” ranking function, also called an approximate cost function to avoid searching in sub-trees that do not contain an answer node. It is similar to the backtracking technique but uses a BFS-like search.</p>
+                
+                <h3>Approach:</h3>
+                    <ol>
+                        <li>Use a priority queue to store live nodes.</li>
+                        <li>Initialize the cost function for the root node.</li>
+                        <li>Expand the node with the least cost.</li>
+                        <li>If a goal state is reached, return the solution.</li>
+                        <li>Continue expanding nodes until a goal state is found or the priority queue is empty.</li>
+                    </ol>
+                <h3>Cost Function</h3>
+                        <p>The cost function balances the actual cost to reach the node and the heuristic estimate to reach the goal. It combines two components:</p>
+                        <ul>
+                            <li>g(X):<p>The cost to reach the current node from the root node.</p></li>
+                            <li>h(X):<p>The estimated cost to reach the goal node from the current node</p></li>
+                        </ul>
+                <h3>Cost Function Formula: <p>C(X)=g(X)+h(X)</p></h3>
+                    <p>where:</p>
+                    <ul>
+                        <li>g(X) is the number of moves taken so far.</li>
+                        <li>h(X) is the number of tiles not in their goal positions.</li>
+                    </ul>
+                    <body>
+
+                        <h1>Branch and Bound Algorithm for N*N-1 Puzzle</h1>
+                    
+                        <p>This is a Python implementation of the Branch and Bound algorithm to solve the N*N-1 puzzle problem. Below is the Python code:</p>
+                        <div class="code-container">
+                        <code>
+                            function A_star(initial_state, goal_state):
+                            open_list = priority_queue()
+                            closed_set = set()
+                            
+                            open_list.push((initial_state, 0))  # (state, g_cost)
+                            
+                            while not open_list.is_empty():
+                                current, g_cost = open_list.pop()
+                                
+                                if current == goal_state:
+                                    return reconstruct_path(current)  # Return the solution
+                                
+                                closed_set.add(current)
+                                
+                                for neighbor in generate_neighbors(current):
+                                    if neighbor in closed_set:
+                                        continue
+                                    
+                                    new_g_cost = g_cost + 1
+                                    f_cost = new_g_cost + heuristic(neighbor, goal_state)
+                                    
+                                    open_list.push((neighbor, new_g_cost))
+                            
+                            return "Unsolvable"
+                        </code>
+                        </div>
+                    </body>
+        </body>    
+        </div>
+    </main>
+    <div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Floklore - Empowering Minds</p>
+    </footer>
+</body>
+</html>
+

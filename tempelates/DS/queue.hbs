@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Floklore</title>
+    <link rel="stylesheet" href="/css/DS.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/webgazer@latest"></script>
+<style>
+        /* Add styles for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 60%;
+            max-width: 700px;
+        }
+
+        .modal-button {
+            background-color: #00796b;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .modal-button:hover {
+            background-color: #004d40;
+        }
+
+        /* Game container and other existing styles remain the same */
+    </style>
+
+</head>
+<body>
+    <header>
+        <div class="header-logo" style="display: flex; align-items: center; gap: 10px;">
+            <i class="fa-duotone fa-solid fa-hat-cowboy" style="--fa-primary-color:  hsl(220, 6%, 90%); --fa-secondary-color:  hsl(220, 6%, 90%); font-size: 2.5rem; color:  hsl(220, 6%, 90%);"></i>
+            <div class="logo" style="font-size: 2rem; font-weight: bold; color: hsl(220, 6%, 90%); font-family: 'Arial', sans-serif;">Floklore</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/index">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <body>
+    <div class="button-container">
+                <button class="control-button" onclick="startTracking()">Start Eye Tracking</button>
+            <button class="control-button" onclick="stopTracking()">Stop Eye Tracking</button>
+            </div>
+            
+            <div id="gazeDot"></div>
+ <div id="course-content">
+        <h1>Queue Data Structure</h1>
+        
+            <p>Queue is a linear data structure that follows FIFO (First In First Out) Principle, so the first element inserted is the first to be popped out.</p>
+        <h3>Basic Terminologies of Queue</h3>
+        <p>
+                <ul>
+                <li>Front:</li>
+                    <p>Position of the entry in a queue ready to be served, that is, the first entry that will be removed from the queue, is called the front of the queue. It is also referred as the head of the queue.</p>
+                <li>Rear:</li>
+                    <p>Position of the last entry in the queue, that is, the one most recently added, is called the rear of the queue. It is also referred as the tail of the queue.</p>
+                <li>Size:</li>
+                    <p>Size refers to the current number of elements in the queue.</p>
+                <li>Capacity:</li>
+                    <p>Capacity refers to the maximum number of elements the queue can hold.</p>
+                
+                </ul>
+                <h4>Representation of Queue</h4>
+                <img src="/images/queue.png" alt="Centered Image"  />
+                </p>
+                <p>
+                <h3>Operations on Queue</h3>
+                <h4>1.Enqueue</h4>
+                <p>Enqueue operation adds (or stores) an element to the end of the queue.</p>
+                <h4>2.Dequeue</h4>
+                <p>Dequeue operation removes the element at the front of the queue.</p>
+                <h4>3.Peek or Front Operation</h4>
+                <p> This operation returns the element at the front end without removing it.</p>
+                <h4>4.Size Operation</h4>
+                <p>This operation returns the numbers of elements present in the queue.</p>
+                <h4>5.isEmpty Operation</h4>
+                <p>This operation returns a boolean value that indicates whether the queue is empty or not.</p>
+                <h4>6.isFull Operation</h4>
+                <p>This operation returns a boolean value that indicates whether the queue is full or not.</p>
+                </p>
+                <p>
+                <h3>Implementation Code Using Arrays in C++</h3>
+     <div class="code-container">
+<code>
+// CPP program for array
+// implementation of queue
+#include <bits/stdc++.h>
+using namespace std;
+ 
+// A structure to represent a queue
+class Queue {
+public:
+    int front, rear, size;
+    unsigned capacity;
+    int* array;
+};
+ 
+// function to create a queue
+// of given capacity.
+// It initializes size of queue as 0
+Queue* createQueue(unsigned capacity)
+{
+    Queue* queue = new Queue();
+    queue->capacity = capacity;
+    queue->front = queue->size = 0;
+ 
+    // This is important, see the enqueue
+    queue->rear = capacity - 1;
+    queue->array = new int[queue->capacity];
+    return queue;
+}
+ 
+// Queue is full when size
+// becomes equal to the capacity
+int isFull(Queue* queue)
+{
+    return (queue->size == queue->capacity);
+}
+ 
+// Queue is empty when size is 0
+int isEmpty(Queue* queue)
+{
+    return (queue->size == 0);
+}
+ 
+// Function to add an item to the queue.
+// It changes rear and size
+void enqueue(Queue* queue, int item)
+{
+    if (isFull(queue))
+        return;
+    queue->rear = (queue->rear + 1)
+                  % queue->capacity;
+    queue->array[queue->rear] = item;
+    queue->size = queue->size + 1;
+    cout << item << " enqueued to queue\n";
+}
+ 
+// Function to remove an item from queue.
+// It changes front and size
+int dequeue(Queue* queue)
+{
+    if (isEmpty(queue))
+        return INT_MIN;
+    int item = queue->array[queue->front];
+    queue->front = (queue->front + 1)
+                   % queue->capacity;
+    queue->size = queue->size - 1;
+    return item;
+}
+ 
+// Function to get front of queue
+int front(Queue* queue)
+{
+    if (isEmpty(queue))
+        return INT_MIN;
+    return queue->array[queue->front];
+}
+ 
+// Function to get rear of queue
+int rear(Queue* queue)
+{
+    if (isEmpty(queue))
+        return INT_MIN;
+    return queue->array[queue->rear];
+}
+ 
+// Driver code
+int main()
+{
+    Queue* queue = createQueue(1000);
+ 
+    enqueue(queue, 10);
+    enqueue(queue, 20);
+    enqueue(queue, 30);
+    enqueue(queue, 40);
+ 
+    cout << dequeue(queue)
+         << " dequeued from queue\n";
+ 
+    cout << "Front item is "
+         << front(queue) << endl;
+    cout << "Rear item is "
+         << rear(queue) << endl;
+ 
+    return 0;
+}</code>
+</div>
+            </body>
+      
+
+        <!-- Modal for Queue Café Game -->
+        <div id="gameModal" class="modal">
+            <div class="modal-content">
+                <h1>Queue Café - FIFO Queue Game</h1>
+                <p>Add customers to the queue and serve them in the correct FIFO order.</p>
+
+                <div class="queue" id="queue">
+                    <!-- Customers will appear here -->
+                </div>
+
+                <div class="button-container">
+                    <button onclick="addCustomer()">Add Customer</button>
+                    <button onclick="serveCustomer()">Serve Customer</button>
+                </div>
+
+                <div class="score">
+                    <p>Score: <span id="score">0</span></p>
+                </div>
+
+                <div id="message" class="message"></div>
+                
+                <button class="modal-button" onclick="closeGame()">Close Game</button>
+            </div>
+        </div>
+
+    </main>
+
+ <div id="webgazerVideoFeed" style="display:none;"></div>
+    <footer>
+        <p>&copy; 2024 Floklore - Empowering Minds</p>
+    </footer>
+</body>
+ <script>
+      let isDistracted = false;
+        let distractionStartTime = null;
+        const distractionThreshold = 3000;
+        let distractionCount = 0;
+        const distractionLimit = 5;
+
+        function startTracking() {
+            const courseContent = document.getElementById("course-content");
+            const courseContentRect = courseContent.getBoundingClientRect();
+            const videoContainer = document.getElementById("webgazerVideoFeed");
+            const videoRect = videoContainer.getBoundingClientRect();
+
+            webgazer.setGazeListener((data) => {
+                if (data) {
+                    const gazeDot = document.getElementById("gazeDot");
+                    gazeDot.style.left = data.x + "px";
+                    gazeDot.style.top = data.y + "px";
+                    gazeDot.style.display = "block";
+
+                    // Check if gaze is outside the course content but not the video area
+                    const isOutsideContent =
+                        (data.x < courseContentRect.left || data.x > courseContentRect.right || 
+                        data.y < courseContentRect.top || data.y > courseContentRect.bottom) &&
+                        (data.x < videoRect.left || data.x > videoRect.right || 
+                        data.y < videoRect.top || data.y > videoRect.bottom);
+
+                    if (isOutsideContent) {
+                        if (!distractionStartTime) {
+                            distractionStartTime = Date.now();
+                        } else if (Date.now() - distractionStartTime >= distractionThreshold && !isDistracted) {
+                            isDistracted = true;
+                            distractionCount++;
+                            console.log(`Distraction ${distractionCount}: Gaze outside the course content.`);
+
+                            if (distractionCount >= distractionLimit) {
+                                askIfDistracted();
+                                distractionCount = 0;
+                            }
+                        }
+                    } else {
+                        resetDistractionState();
+                    }
+                }
+            }).showPredictionPoints(false).begin();
+
+            webgazer.showVideo(false);
+            videoContainer.appendChild(webgazer.getVideoElement());
+            webgazer.showFaceOverlay(false);
+            webgazer.showFaceFeedbackBox(false);
+        }
+
+        function stopTracking() {
+            webgazer.end();
+            document.getElementById("gazeDot").style.display = "none";
+            resetDistractionState();
+        }
+
+        function askIfDistracted() {
+            const userResponse = confirm("You've been distracted multiple times. Are you focused?");
+            if (userResponse) {
+                alert("Great! Stay focused.");
+            } else {
+                const playGameResponse = confirm("Take a short break and play a game?");
+                if (playGameResponse) {
+                    openGameModal(); // Open the game modal
+                } else {
+                    alert("Take a break and try again later.");
+                }
+            }
+        }
+
+        function resetDistractionState() {
+            isDistracted = false;
+            distractionStartTime = null;
+        }
+         function openGameModal() {
+            document.getElementById("gameModal").style.display = "flex"; // Show the modal with the game
+        }
+
+        function closeGame() {
+            document.getElementById("gameModal").style.display = "none"; // Close the modal
+        }
+
+        function resetDistractionState() {
+            isDistracted = false;
+            distractionStartTime = null;
+        }
+
+        // Queue Café Game Logic (same as in your earlier code)
+        let queue = [];
+        let score = 0;
+
+        function addCustomer() {
+            const customerName = "Customer " + (queue.length + 1);
+            queue.push(customerName);
+            updateQueueDisplay();
+            updateMessage("Customer added to the queue.", "success");
+        }
+
+        function serveCustomer() {
+            if (queue.length > 0) {
+                const servedCustomer = queue.shift(); 
+                score += 10; 
+                updateMessage("Served: " + servedCustomer, "success");
+            } else {
+                score -= 5; 
+                updateMessage("No customers in the queue!", "error");
+            }
+            updateQueueDisplay();
+            updateScore();
+        }
+
+        function updateQueueDisplay() {
+            const queueContainer = document.getElementById("queue");
+            queueContainer.innerHTML = ''; 
+
+            queue.forEach((customer, index) => {
+                const customerDiv = document.createElement("div");
+                customerDiv.className = "customer";
+                customerDiv.textContent = customer;
+                queueContainer.appendChild(customerDiv);
+            });
+        }
+
+        function updateScore() {
+            document.getElementById("score").textContent = score;
+        }
+
+        function updateMessage(message, type) {
+            const messageElement = document.getElementById("message");
+            messageElement.textContent = message;
+
+            if (type === "success") {
+                messageElement.classList.add("success");
+                messageElement.classList.remove("error");
+            } else if (type === "error") {
+                messageElement.classList.add("error");
+                messageElement.classList.remove("success");
+            }
+        }
+
+        // Eye tracking logic with webgazer goes here
+
+    </script>
+</body>  
+</html>

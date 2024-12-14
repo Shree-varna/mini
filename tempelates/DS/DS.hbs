@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Floklore</title>
+    <link rel="stylesheet" href="/css/DS.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/webgazer@latest"></script>
+    
+</head>
+<body>
+    <header>
+        <div class="header-logo" style="display: flex; align-items: center; gap: 10px;">
+            <i class="fa-duotone fa-solid fa-hat-cowboy" style="--fa-primary-color:  hsl(220, 6%, 90%); --fa-secondary-color:  hsl(220, 6%, 90%); font-size: 2.5rem; color:  hsl(220, 6%, 90%);"></i>
+            <div class="logo" style="font-size: 2rem; font-weight: bold; color: hsl(220, 6%, 90%); font-family: 'Arial', sans-serif;">Floklore</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/index">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <div class="button-container">
+                <button class="control-button" onclick="startTracking()">Start Eye Tracking</button>
+            <button class="control-button" onclick="stopTracking()">Stop Eye Tracking</button>
+            </div>
+            
+            <div id="gazeDot"></div>
+ <div id="course-content">
+    <h1>Data Structures</h1>
+    <p>Data structures are the fundamental building blocks of computer programming.</p>
+    <p> They define how data is organized, stored, and manipulated within a program.</p>
+    <p> Understanding data structures is very important for developing efficient and effective algorithms.</p>
+    
+    <h2>What is Data Structure?</h2>
+    <p>A data structure is a storage that is used to store and organize data.</p>
+    <p> It is a way of arranging data on a computer so that it can be accessed and updated efficiently.</p>
+    <p>A data structure is not only used for organizing the data.</p>
+    <p> It is also used for processing, retrieving, and storing data.</p>
+    <p> There are different basic and advanced types of data structures that are used in almost every program or software system that has been developed.</p>
+    <p>So we must have good knowledge about data structures.</p> 
+    <h2>Classification of Data Structure</h2>
+    <img src="/images/DS.jpg" alt="Centered Image"  />
+    <ul>
+    <li>Linear Data Structure:</li>
+     <p>Data structure in which data elements are arranged sequentially or linearly, where each element is attached to its previous and next adjacent elements, is called a linear data structure.</p> 
+     <p>Example: Array, Stack, Queue, Linked List, etc.</p>
+     <li>Static Data Structure:</li>
+     <p> Static data structure has a fixed memory size.</p>
+     <p> It is easier to access the elements in a static data structure.</p> 
+     <p>Example: array.<p>
+     <li>Dynamic Data Structure:</li>
+     <p> In dynamic data structure, the size is not fixed.</p>
+     <p> It can be randomly updated during the runtime which may be considered efficient concerning the memory (space) complexity of the code.</p> 
+     <p>Example: Queue, Stack, etc.</p>
+     <li>Non-Linear Data Structure:</li>
+     <p> Data structures where data elements are not placed sequentially or linearly are called non-linear data structures.</p>
+     <p> In a non-linear data structure, we can’t traverse all the elements in a single run only.</p> 
+     <p>Examples: Trees and Graphs.</p>
+     </ul>
+     </body>
+     <div class="course-list">
+            
+            <div class="course-card" onclick="window.location.href='/DS/stack'">
+                <h2>Stack</h2>
+                <p>"Stack is a linear data structure that follows the Last In, First Out (LIFO) principle."</p>
+            </div>
+            <div class="course-card" onclick="window.location.href='/DS/queue'">
+                <h2>Queue</h2>
+                <p>"Queue is a linear data structure that follows the First In, First Out (FIFO) principle."</p>
+
+            </div>
+            <div class="course-card"  onclick="window.location.href='/Ds/linkedlist'">
+                <h2>Linked List</h2>
+                <p>"Linked list is a linear data structure that stores data in nodes, which are connected by pointers."</p>
+            </div>
+        </div>
+        </div>
+    </main>
+    <div id="webgazerVideoFeed" style="display:none;"></div>
+    <footer>
+        <p>&copy; 2024 Floklore - Empowering Minds</p>
+    </footer>
+    <script>
+      let isDistracted = false;
+        let distractionStartTime = null;
+        const distractionThreshold = 3000;
+        let distractionCount = 0;
+        const distractionLimit = 5;
+
+        function startTracking() {
+            const courseContent = document.getElementById("course-content");
+            const courseContentRect = courseContent.getBoundingClientRect();
+            const videoContainer = document.getElementById("webgazerVideoFeed");
+            const videoRect = videoContainer.getBoundingClientRect();
+
+            webgazer.setGazeListener((data) => {
+                if (data) {
+                    const gazeDot = document.getElementById("gazeDot");
+                    gazeDot.style.left = data.x + "px";
+                    gazeDot.style.top = data.y + "px";
+                    gazeDot.style.display = "block";
+
+                    // Check if gaze is outside the course content but not the video area
+                    const isOutsideContent =
+                        (data.x < courseContentRect.left || data.x > courseContentRect.right || 
+                        data.y < courseContentRect.top || data.y > courseContentRect.bottom) &&
+                        (data.x < videoRect.left || data.x > videoRect.right || 
+                        data.y < videoRect.top || data.y > videoRect.bottom);
+
+                    if (isOutsideContent) {
+                        if (!distractionStartTime) {
+                            distractionStartTime = Date.now();
+                        } else if (Date.now() - distractionStartTime >= distractionThreshold && !isDistracted) {
+                            isDistracted = true;
+                            distractionCount++;
+                            console.log(`Distraction ${distractionCount}: Gaze outside the course content.`);
+
+                            if (distractionCount >= distractionLimit) {
+                                askIfDistracted();
+                                distractionCount = 0;
+                            }
+                        }
+                    } else {
+                        resetDistractionState();
+                    }
+                }
+            }).showPredictionPoints(false).begin();
+
+            webgazer.showVideo(false);
+            videoContainer.appendChild(webgazer.getVideoElement());
+            webgazer.showFaceOverlay(false);
+            webgazer.showFaceFeedbackBox(false);
+        }
+
+        function stopTracking() {
+            webgazer.end();
+            document.getElementById("gazeDot").style.display = "none";
+            resetDistractionState();
+        }
+
+        function askIfDistracted() {
+            const userResponse = confirm("You've been distracted multiple times. Are you focused?");
+            if (userResponse) {
+                alert("Great! Stay focused.");
+            } else {
+                alert("Take a short break and refocus.");
+            }
+        }
+
+        function resetDistractionState() {
+            isDistracted = false;
+            distractionStartTime = null;
+        }
+    </script>
+</body>
+</html>
+  

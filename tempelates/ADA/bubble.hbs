@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Floklore</title>
+    <link rel="stylesheet" href="/css/ADA.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-logo" style="display: flex; align-items: center; gap: 10px;">
+            <i class="fa-duotone fa-solid fa-hat-cowboy" style="--fa-primary-color:  hsl(220, 6%, 90%); --fa-secondary-color:  hsl(220, 6%, 90%); font-size: 2.5rem; color:  hsl(220, 6%, 90%);"></i>
+            <div class="logo" style="font-size: 2rem; font-weight: bold; color: hsl(220, 6%, 90%); font-family: 'Arial', sans-serif;">Floklore</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/index">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+        <h1>Bubble Sort</h1>
+        <p><b>Bubble Sort</b> is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in the wrong order. This algorithm is not suitable for large data sets as its average and worst-case time complexity are quite high.</p>
+        <ul>
+            <li>We sort the array using multiple passes. After the first pass, the maximum element goes to end (its correct position). Same way, after second pass, the second largest element goes to second last position and so on.</li>
+            <li>In every pass, we process only those elements that have already not moved to correct position. After k passes, the largest k elements must have been moved to the last k positions.</li>
+            <li>In a pass, we consider remaining elements and compare all adjacent and swap if larger element is before a smaller element. If we keep doing this, we get the largest (among the remaining elements) at its correct position.</li>
+        </ul>
+        <h2>How does Bubble Sort Work?</h2>
+        <h3>Step 1: Compare Adjacent Elements</h3>
+        <p>Compare two adjacent elements in the array. If the first element is larger than the second, swap them to ensure the larger one moves to the right.</p>
+        <div class="image-container">
+            <img src="/images/Bubble1.jpg" alt="Centerd Image" />
+        </div>
+        <h3>Step 2: Repeat for the Entire Array</h3>
+        <p>Repeat the comparison and swapping process for all adjacent pairs in the array. By the end of the pass, the largest element will "bubble up" to the correct position (the end of the array).</p>
+        <div class="image-container">
+            <img src="/images/Bubble2.jpg" alt="Centerd Image" />
+        </div>
+            <h3>Step 3: Reduce and Repeat</h3>
+            <p>Exclude the last (already sorted) element and repeat the process for the remaining unsorted portion of the array. Continue until the entire array is sorted.</p>
+        <div class="image-container">
+            <img src="/images/Bubble3.jpg" alt="Centerd Image" />
+        </div>
+        <h2>Complexity Analysis of Bubble Sort:</h2>
+        <ul>
+            <li><b>Time Complexity: </b>O(n2)</li>
+            <li><b>Auxiliary Complexity: </b>O(1)</li>
+        </ul>
+        <h2>Advantages of Bubble Sort:</h2>
+        <ul>
+            <li>Bubble sort is easy to understand and implement.</li>
+            <li>It does not require any additional memory space.</li>
+            <li>It is a stable sorting algorithm, meaning that elements with the same key value maintain their relative order in the sorted output.</li>
+        </ul>
+        <h2>Disadvantages of Bubble Sort:</h2>
+        <ul>
+            <li>Bubble sort has a time complexity of O(n2) which makes it very slow for large data sets.</li>
+            <li>Bubble sort is a comparison-based sorting algorithm, which means that it requires a comparison operator to determine the relative order of elements in the input data set. It can limit the efficiency of the algorithm in certain cases.</li>
+        </ul>
+        <p>Below is the implementation of the above approach:</p>
+        <div class="code-container">
+            <code>
+                # Optimized Python program for implementation of Bubble Sort
+                def bubbleSort(arr):
+                    n = len(arr)
+                    
+                    # Traverse through all array elements
+                    for i in range(n):
+                        swapped = False
+                
+                        # Last i elements are already in place
+                        for j in range(0, n-i-1):
+                
+                            # Traverse the array from 0 to n-i-1
+                            # Swap if the element found is greater
+                            # than the next element
+                            if arr[j] > arr[j+1]:
+                                arr[j], arr[j+1] = arr[j+1], arr[j]
+                                swapped = True
+                        if (swapped == False):
+                            break
+                
+                # Driver code to test above
+                if __name__ == "__main__":
+                    arr = [64, 34, 25, 12, 22, 11, 90]
+                
+                    bubbleSort(arr)
+                
+                    print("Sorted array:")
+                    for i in range(len(arr)):
+                        print("%d" % arr[i], end=" ")
+        </code>
+        </div>                
+        </body>    
+        </div>
+    </main>
+
+    <div>
+
+    </div>
+    <footer>
+        <p>&copy; 2024 Floklore - Empowering Minds</p>
+    </footer>
+</body>
+</html>
+

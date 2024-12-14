@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Floklore</title>
+    <link rel="stylesheet" href="/css/AI.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-logo" style="display: flex; align-items: center; gap: 10px;">
+            <i class="fa-duotone fa-solid fa-hat-cowboy" style="--fa-primary-color:  hsl(220, 6%, 90%); --fa-secondary-color:  hsl(220, 6%, 90%); font-size: 2.5rem; color:  hsl(220, 6%, 90%);"></i>
+            <div class="logo" style="font-size: 2rem; font-weight: bold; color: hsl(220, 6%, 90%); font-family: 'Arial', sans-serif;">Floklore</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/index">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+        <h1>Wumps World</h1>
+            <p>The Wumpus World’s agent is an example of a knowledge-based agent that represents Knowledge representation, reasoning and planning. Knowledge-Based agent links general knowledge with current percepts to infer hidden characters of current state before selecting actions. Its necessity is vital in partially observable environments</p>
+            <ul>
+                <li>Problem Statement:</li>
+                <P>The Wumpus world is a cave with 16 rooms (4×4). Each room is connected to others through walkways (no rooms are connected diagonally). The knowledge-based agent starts from Room[1, 1]. The cave has – some pits, a treasure and a beast named Wumpus. The Wumpus can not move but eats the one who enters its room. If the agent enters the pit, it gets stuck there. The goal of the agent is to take the treasure and come out of the cave. The agent is rewarded, when the goal conditions are met. The agent is penalized, when it falls into a pit or being eaten by the Wumpus.
+                    Some elements support the agent to explore the cave, like -The wumpus’s adjacent rooms are stenchy. -The agent is given one arrow which it can use to kill the wumpus when facing it (Wumpus screams when it is killed). – The adjacent rooms of the room with pits are filled with breeze. -The treasure room is always glittery.</P>
+            </ul>
+            <div class="properties-container">
+                <h1>The Wumpus World Properties</h1>
+                <ul>
+                    <li><strong>Partially observable:</strong> The Wumpus world is partially observable because the agent can only perceive the close environment such as an adjacent room.</li>
+                    <li><strong>Deterministic:</strong> It is deterministic, as the result and outcome of the world are already known.</li>
+                    <li><strong>Sequential:</strong> The order is important, so it is sequential.</li>
+                    <li><strong>Static:</strong> It is static as Wumpus and Pits are not moving.</li>
+                    <li><strong>Discrete:</strong> The environment is discrete.</li>
+                    <li><strong>One agent:</strong> The environment is a single agent as we have one agent only and Wumpus is not considered as an agent.</li>
+                </ul>
+            </div>
+            <div class="image-container">
+                <img src="/images/wumps1.jpg" alt="Centerd Image"  />
+            </div>
+            <p>PEAS represents Performance Measures, Environment, Actuators, and Sensors. The PEAS description helps in grouping the agents.</p>
+            <h2>PEAS Description for the Wumpus World problem:</h2>
+            
+        <h3>1. Performance measures:</h3>
+        <ul>
+                <li>Agent gets the gold and return back safe = +1000 point</li>
+                <li>Agent dies = -1000 points</li>
+                <li>Each move of the agent = -1 point</li>
+                <li>Agent uses the arrow = -10 points</li>
+        </ul>
+        <h3>2. Environment:</h3>
+        <ul>
+                <li>A cave with 16(4×4) rooms</li>
+                <li>Rooms adjacent (not diagonally) to the Wumpus are stinking</li>
+                <li>Rooms adjacent (not diagonally) to the pit are breezy</li>
+                <li>The room with the gold glitters</li>
+                <li>Agent’s initial position – Room[1, 1] and facing right side</li>
+                <li>Location of Wumpus, gold and 3 pits can be anywhere, except in Room[1, 1].</li>
+                
+            </ul>
+        <h3>3. Actuators:</h3>
+        <p>Devices that allow the agent to perform the following actions in the environment.</p>
+        <ul>
+            <li>Move forward</li>
+            <li>Turn right</li>
+            <li>Turn left</li>
+            <li>Shoot</li>
+            <li>Grab</li>
+            <li>Release</li>
+        </ul>
+        <h3>4. Sensors:</h3>
+        <p>Devices which helps the agent in sensing the following from the environment.</p>
+        <ul>
+            <li>Breeze</li>
+            <li>Stench</li>
+            <li>Glitter</li>
+            <li>Scream (When the Wumpus is killed)</li>
+            <li>Bump (when the agent hits a wall)</li>
+        </ul>
+    
+    <div class="properties-container">
+        <h2>Exploring the Wumpus World</h2>
+        <li>We will now explore the Wumpus world in AI and use logical reasoning to determine how the agent will reach its objective.    </li>
+    <ul>
+    <li><strong>Agent's first step:</strong> Initially, the agent is in the first room or on the square [1,1], and we already know that this room is safe for the agent, so we will add the symbol OK to the below diagram (a) to indicate that room is safe. Then, the agent is represented by symbol A, the breeze by symbol B, the glitter or gold by symbol G, the visited chamber by symbol V, the pits by symbol P, and the wumpus by symbol W. The agent does not detect any breeze or Stench in Room [1,1], implying that the neighboring squares are also fine.</li>
+    <div class="image-container">
+        <img src="/images/wumps2.jpg" alt="Centerd Image"  />
+    </div>
+    <li><strong>Agent's second step:</strong> Now that the agent has to proceed forward, it will either go to [1, 2] or [2, 1]. Assume the agent moves to room [2, 1]. The agent detects a breeze in this chamber, indicating that the pit is nearby. The pit can be in [3, 1] or [2, 2], so we'll put the symbol P? to indicate whether or not this is a Pit room.
+Now, the agent will pause and reflect before making any bad moves. Finally, the agent will return to the [1, 1] chamber. The agent visits rooms [1,1] and [2,1], so we will use V to symbolize the visited squares.</li>
+    <li><strong>Agent's third step:</strong> At the third stage, the agent will proceed to room [1,2], which is fine. The agent detects a stench in the area [1,2], indicating the presence of a Wumpus nearby. But, according to the game's regulations, wumpus cannot be in the room [1,1] nor in [2,2]. (Agent had not detected any stench when he was at [2,1]). As a result, the agent deduces that the wumpus is in room [1,3], and in the present state, there is no breeze, implying that there is no Pit and no Wumpus in [2,2]. So it's safe, and we'll label it OK, and the agent will move in further [2,2].</li>
+    <li><strong>Agent's fourth move:</strong>Because there is no stench or breeze in room [2,2], let us assume the agent chooses to relocate to [2,3]. The agent detects glitter in the room [2,3], so it should take the gold and climb out of the cave.</li>
+</ul>
+</div>
+
+<p>This is a Python implementation of the Wumps World algorithm. Below is the Python code:</p>
+<div class="code-container">
+    <code>
+        # Wumpus World Properties
+        wumpus_properties = {
+            "Partially observable": "The agent can only perceive the close environment, such as an adjacent room.",
+            "Deterministic": "The result and outcome of the world are already known.",
+            "Sequential": "The order is important, so it is sequential.",
+            "Static": "The Wumpus and Pits are not moving.",
+            "Discrete": "The environment is discrete.",
+            "One agent": "The environment has one agent; the Wumpus is not considered an agent."
+        }
+        
+        # Display the properties
+        print("The Wumpus World Properties:")
+        print("-" * 35)
+        for key, value in wumpus_properties.items():
+            print(f"{key}:\n  {value}\n")
+    </code>
+</div>          
+        </body>    
+        </div>
+    </main>
+    <div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Floklore - Empowering Minds</p>
+    </footer>
+</body>
+</html>
+

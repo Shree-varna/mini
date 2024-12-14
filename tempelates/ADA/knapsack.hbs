@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Floklore</title>
+    <link rel="stylesheet" href="/css/ADA.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-logo" style="display: flex; align-items: center; gap: 10px;">
+            <i class="fa-duotone fa-solid fa-hat-cowboy" style="--fa-primary-color:  hsl(220, 6%, 90%); --fa-secondary-color:  hsl(220, 6%, 90%); font-size: 2.5rem; color:  hsl(220, 6%, 90%);"></i>
+            <div class="logo" style="font-size: 2rem; font-weight: bold; color: hsl(220, 6%, 90%); font-family: 'Arial', sans-serif;">Floklore</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/index">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Knapsack Problem</h1>
+        <p>The Knapsack problem is an example of the combinational optimization problem. This problem is also commonly known as the “Rucksack Problem“. The name of the problem is defined from the maximization problem as mentioned below:</p>
+                <p>Given a bag with maximum weight capacity of W and a set of items, each having a weight and a value associated with it. Decide the number of each item to take in a collection such that the total weight is less than the capacity and the total value is maximized.</p>    
+            <h2>Types of Knapsack Problem: </h2>
+            <p>The knapsack problem can be classified into the following types:     </p>
+            <ol>
+                <li>Fractional Knapsack Problem</li>
+                <li>0/1 Knapsack Problem</li>
+                <li>Bounded Knapsack Problem</li>
+                <li>Unbounded Knapsack Problem</li>
+            </ol>
+            <h2>Fractional Knapsack Problem</h2>
+            <p>The knapsack problem states that − given a set of items, holding weights and profit values, one must determine the subset of the items to be added in a knapsack such that, the total weight of the items must not exceed the limit of the knapsack and its total profit value is maximum.</p>
+            <p>It is one of the most popular problems that take greedy approach to be solved. It is called as the Fractional Knapsack Problem.</p>
+            <img src="/images/Knapsack1.jpg" alt="Centerd Image"  />
+                <p>The weights (Wi) and profit values (Pi) of the items to be added in the knapsack are taken as an input for the fractional knapsack algorithm and the subset of the items added in the knapsack without exceeding the limit and with maximum profit is achieved as the output.</p>
+            <h3>Fractional Knapsack example: </h3>
+            <p>Let us consider that the capacity of the knapsack W = 60 and the list of provided items are shown in the following table −</p>
+            <img src="/images/Knapsack2.jpg" alt="Centerd Image"  />
+            <p>As the provided items are not sorted based on piwi. After sorting, the items are as shown in the following table.</p>
+            <img src="/images/Knapsack3.jpg" alt="Centerd Image"  />
+            <h3>Solution:</h3>
+            <ul>
+                <li>After sorting all the items according to pi/wi.</li>
+                <li>First all of B is chosen as weight of B is less than the capacity of the knapsack. Next, item A is chosen, as the available capacity of the knapsack is greater than the weight of A. Now, C is chosen as the next item. However, the whole item cannot be chosen as the remaining capacity of the knapsack is less than the weight of C.</li>
+                <li>Hence, fraction of C (i.e. (60 − 50)/20) is chosen.</li>
+                <li>Now, the capacity of the Knapsack is equal to the selected items. Hence, no more item can be selected.</li>
+                <li>The total weight of the selected items is 10 + 40 + 20 * (10/20) = 60 And the total profit is 100 + 280 + 120 * (10/20) = 380 + 60 = 440</li>
+                <li>This is the optimal solution. We cannot gain more profit selecting any different combination of items</li>
+            </ul>
+            
+            <h2>Algorithm</h2>
+            <ol>
+                <li>Consider all the items with their weights and profits mentioned respectively.</li>
+                <li>Calculate Pi/Wi of all the items and sort the items in descending order based on their Pi/Wi values.</li>
+                <li>Without exceeding the limit, add the items into the knapsack. </li>
+                <li>If the knapsack can still store some weight, but the weights of other items exceed the limit, the fractional part of the next time can be added.</li>
+                <li>Hence, giving it the name fractional knapsack problem.</li>
+            </ol>
+
+            <p>Below is the implementation of the above approach:</p>
+            <div class="code-container">
+                <code>
+                    # Structure for an item which stores weight and
+                    class Item:
+                        def __init__(self, profit, weight):
+                            self.profit = profit
+                            self.weight = weight
+                    def fractionalKnapsack(W, arr):
+                        arr.sort(key=lambda x: (x.profit/x.weight)reverse=True) 
+                        finalvalue = 0.0
+                        for item in arr:
+                            if item.weight <= W:
+                                W -= item.weight
+                                finalvalue += item.profit
+                            else:
+                                finalvalue += item.profit * W / item.weight
+                                break
+                        return finalvalue
+                    
+                    if __name__ == "__main__":
+                        W = 50
+                        arr = [Item(60, 10), Item(100, 20), Item(120, 30)]
+                        max_val = fractionalKnapsack(W, arr)
+                        print(max_val)       
+            </code>
+            </div>
+            <b>Output: 80</b>
+        </div>
+    </main>
+
+    <div>
+
+    </div>
+    <footer>
+        <p>&copy; 2024 Floklore - Empowering Minds</p>
+    </footer>
+</body>
+</html>
+

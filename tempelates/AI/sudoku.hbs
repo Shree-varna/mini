@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - Floklore</title>
+    <link rel="stylesheet" href="/css/AI.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-logo" style="display: flex; align-items: center; gap: 10px;">
+            <i class="fa-duotone fa-solid fa-hat-cowboy" style="--fa-primary-color:  hsl(220, 6%, 90%); --fa-secondary-color:  hsl(220, 6%, 90%); font-size: 2.5rem; color:  hsl(220, 6%, 90%);"></i>
+            <div class="logo" style="font-size: 2rem; font-weight: bold; color: hsl(220, 6%, 90%); font-family: 'Arial', sans-serif;">Floklore</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/index">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+        <h1>Sudoku</h1>
+            <p>Sudoku in Artificial Intelligence (AI) refers to the application of AI techniques to solve Sudoku puzzles. Sudoku is a popular number-placement puzzle where the objective is to fill a 9x9 grid with digits (1 to 9) such that each column, each row, and each of the nine 3x3 subgrids contain all digits from 1 to 9 exactly once. The puzzle is typically given with some cells pre-filled, and the AI needs to deduce the values for the remaining cells.</p>
+            <div class="properties-container">
+                <ul>
+                    <li><strong>1. Row constraint:</strong> Each number from 1 to 9 must appear exactly once in every row.</li>
+                    <li><strong>2. Column constraint:</strong> Each number from 1 to 9 must appear exactly once in every column.</li>
+                    <li><strong>3. Subgrid constraint:</strong> Each number from 1 to 9 must appear exactly once in every 3x3 subgrid.</li>
+                </ul>
+                <div class="image-container">
+                    <img src="/images/sudoku1.jpg" alt="Centerd Image"  />
+                </div>
+                <h2>Key AI Techniques Used in Sudoku Solving:</h2>
+                <ul>
+                    <li><strong>1. Backtracking:</strong> This is a depth-first search algorithm used to try different possibilities for each empty cell, backtracking when a conflict occurs. It's the most common algorithm used for solving Sudoku with AI.</li>
+                    <li><strong>2. Constraint Propagation:</strong> This technique reduces the search space by propagating constraints through the grid. When one number is placed in a cell, it immediately restricts the possible numbers for related rows, columns, and subgrids.</li>
+                    <li><strong>3. Heuristic Search:</strong> Heuristics help in making smarter choices while solving the puzzle, such as choosing the cell with the fewest possible options first (Minimum Remaining Values).</li>
+                    <li><strong>4. Optimization:</strong> AI may also use optimization algorithms like simulated annealing or genetic algorithms to find solutions faster or more efficiently.</li>
+                </ul>
+            </div>
+
+        <h2>Sudoku Using Backtracking</h2>
+        <p> Sudoku puzzle using Backtracking in Python. The backtracking algorithm is a depth-first search method used to try different possibilities, and it "backtracks" when a conflict is found, making it a natural fit for solving Sudoku.Backtracking is one of the most common AI techniques used to solve Sudoku. It is a form of depth-first search (DFS) where the algorithm tries to place a number in an empty cell, then recursively moves forward to the next empty cell. If a conflict arises (i.e., the number doesn't fit the constraints), the algorithm backtracks, changing previous decisions to explore other possibilities. This is repeated until a solution is found or all possibilities are exhausted.</p>
+        <h2>Follow the steps below to solve the problem:</h2>
+        <ul>
+            <li>Create a function that checks after assigning the current index the grid becomes unsafe or not. Keep Hashmap for a row, column and boxes. If any number has a frequency greater than 1 in the hashMap return false else return true; hashMap can be avoided by using loops.            </li>
+            <li>Create a recursive function that takes a grid.            </li>
+            <li>Check for any unassigned location. </li>
+            <ul>
+                <li>If present then assigns a number from 1 to 9.</li>
+                <li>Check if assigning the number to current index makes the grid unsafe or not. </li>
+                <li>If safe then recursively call the function for all safe cases from 0 to 9.</li>
+                <li>If any recursive call returns true, end the loop and return true. If no recursive call returns true then return false.</li>
+            </ul>
+            <li>If there is no unassigned location then return true</li>
+        </ul>
+<p>Below is the implementation of the above approach:</p>
+<div class="code-container">
+    <code>
+        # A Backtracking program 
+        def print_grid(arr):
+            for i in range(9):
+                for j in range(9):
+                    print (arr[i][j], end = " "),
+                print ()
+        def find_empty_location(arr, l):
+            for row in range(9):
+                for col in range(9):
+                    if(arr[row][col]== 0):
+                        l[0]= row
+                        l[1]= col
+                        return True
+            return False
+        def used_in_row(arr, row, num):
+            for i in range(9):
+                if(arr[row][i] == num):
+                    return True
+            return False
+        def used_in_col(arr, col, num):
+            for i in range(9):
+                if(arr[i][col] == num):
+                    return True
+            return False
+        def used_in_box(arr, row, col, num):
+            for i in range(3):
+                for j in range(3):
+                    if(arr[i + row][j + col] == num):
+                        return True
+            return False
+            return (not used_in_row(arr, row, num) and (not used_in_col(arr, col, num) and (not used_in_box(arr, row - row % 3,col - col % 3, num))))
+    
+        def solve_sudoku(arr):
+            l =[0, 0] 
+            if(not find_empty_location(arr, l)):
+                return True
+            row = l[0]
+            col = l[1]
+            for num in range(1, 10):
+                if(check_location_is_safe(arr,row, col, num)):
+                    arr[row][col]= num
+                    if(solve_sudoku(arr)):
+                        return True
+                    arr[row][col] = 0    
+            return False 
+        if __name__=="__main__":
+            grid =[[0 for x in range(9)]for y in range(9)]
+            grid =[[3, 0, 6, 5, 0, 8, 4, 0, 0],
+                [5, 2, 0, 0, 0, 0, 0, 0, 0],
+                [0, 8, 7, 0, 0, 0, 0, 3, 1],
+                [0, 0, 3, 0, 1, 0, 0, 8, 0],
+                [9, 0, 0, 8, 6, 3, 0, 0, 5],
+                [0, 5, 0, 0, 9, 0, 6, 0, 0],
+                [1, 3, 0, 0, 0, 0, 2, 5, 0],
+                [0, 0, 0, 0, 0, 0, 0, 7, 4],
+                [0, 0, 5, 2, 0, 6, 3, 0, 0]]
+            if(solve_sudoku(grid)):
+                print_grid(grid)
+            else:
+                print ("No solution exists")
+    </code>
+</div>
+<p><b>Output:</b></p> 
+        <img src="/images/sudoku2.jpg"  />
+<ul>
+    <li>Time complexity:</li>
+    <p>O(9(N*N)). For every unassigned index, there are 9 possible options so the time complexity is O(9^(n*n)). The time complexity remains the same but checking if a number is safe to use is much faster, O(1).</p>
+    <li>Space Complexity: </li>
+    <p>O(N*N). To store the output array a matrix is needed, and 3 extra arrays of size n are needed for the bitmasks.</p>
+</ul>
+        </body>    
+        </div>
+    </main>
+
+    <div>
+
+    </div>
+    <footer>
+        <p>&copy; 2024 Floklore - Empowering Minds</p>
+    </footer>
+</body>
+</html>
+
